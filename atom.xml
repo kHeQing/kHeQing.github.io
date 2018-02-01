@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-01T08:12:36.000Z</updated>
+  <updated>2018-02-01T09:27:01.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python笔记 实例属性和类属性</title>
+    <link href="http://yoursite.com/2018/02/01/Python%E7%AC%94%E8%AE%B0%20%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7%E5%92%8C%E7%B1%BB%E5%B1%9E%E6%80%A7/"/>
+    <id>http://yoursite.com/2018/02/01/Python笔记 实例属性和类属性/</id>
+    <published>2018-02-01T08:55:54.000Z</published>
+    <updated>2018-02-01T09:27:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Python是一门动态语言，根据类创建的实例可以任意绑定属性。<br><a id="more"></a>  </p><h5 id="实例属性的绑定有两种方式："><a href="#实例属性的绑定有两种方式：" class="headerlink" title="实例属性的绑定有两种方式："></a>实例属性的绑定有两种方式：</h5><ul><li><p>在类里面的初始化方法中以<code>self.xxx</code>的方式绑定：</p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">self.name = name</span><br></pre></td></tr></table></figure></li><li><p>通过实例变量直接复制绑定：</p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = People(<span class="string">'HeQing'</span>)</span><br><span class="line">s.height = <span class="number">180</span></span><br></pre></td></tr></table></figure></li></ul><h5 id="类属性绑定："><a href="#类属性绑定：" class="headerlink" title="类属性绑定："></a>类属性绑定：</h5><ul><li><p>在类中直接定义属性：</p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">name = <span class="string">"HeQing"</span></span><br></pre></td></tr></table></figure></li></ul><h5 id="实例属性和类属性之间的关系："><a href="#实例属性和类属性之间的关系：" class="headerlink" title="实例属性和类属性之间的关系："></a>实例属性和类属性之间的关系：</h5><p>如果实例中不存在这个属性，但是类中存在，那么所有的实例都可以调用这个属性，返回的是类属性的值。<br>如果实例中存在与类中同名的属性那么实例调用这个属性则是实例自己的属性。<br>因此不要对类属性和实例属性使用相同的名字，实例属性会屏蔽掉类属性。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">name = <span class="string">"HeQing"</span></span><br><span class="line"></span><br><span class="line">s = People()</span><br><span class="line">print(s.name)  <span class="comment"># HeQing</span></span><br><span class="line"></span><br><span class="line">s.name = <span class="string">"QingHe"</span></span><br><span class="line">print(s.name)  <span class="comment"># QingHe</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> s.name</span><br><span class="line">print(s.name)  <span class="comment"># HeQing</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Python是一门动态语言，根据类创建的实例可以任意绑定属性。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Python笔记 dir()函数</title>
