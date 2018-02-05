@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python,dir," />
+  <meta name="keywords" content="__slots__,property," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
-<meta name="keywords" content="Python,dir">
+<meta name="description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
+<meta name="keywords" content="__slots__,property">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python笔记 dir()函数">
-<meta property="og:url" content="http://yoursite.com/2018/02/01/Python笔记 dir()函数/index.html">
+<meta property="og:title" content="Python笔记 __slots__ &amp; @property">
+<meta property="og:url" content="http://yoursite.com/2018/02/05/Python笔记 __slots__/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
+<meta property="og:description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T02:12:03.000Z">
+<meta property="og:updated_time" content="2018-02-05T02:10:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python笔记 dir()函数">
-<meta name="twitter:description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
+<meta name="twitter:title" content="Python笔记 __slots__ &amp; @property">
+<meta name="twitter:description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/01/Python笔记 dir()函数/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/05/Python笔记 __slots__/"/>
 
 
 
 
 
-  <title>Python笔记 dir()函数 | HeQing</title>
+  <title>Python笔记 __slots__ & @property | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/Python笔记 dir()函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/Python笔记 __slots__/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python笔记 dir()函数</h1>
+          <h1 class="post-title" itemprop="name headline">Python笔记 __slots__ & @property</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T13:16:51+08:00">
-                2018-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T09:02:32+08:00">
+                2018-02-05
               </time>
             
 
@@ -355,22 +355,20 @@
       
 
       
-        <p>使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。<br><a id="more"></a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(<span class="string">'string'</span>)</span><br><span class="line">[<span class="string">'__add__'</span>, <span class="string">'__class__'</span>, <span class="string">'__contains__'</span>,..., <span class="string">'title'</span>, <span class="string">'translate'</span>, <span class="string">'upper'</span>, <span class="string">'zfill'</span>]</span><br></pre></td></tr></table></figure>
-<p><code>__xxx__</code>这样的函数在Python中有特殊用途，如<code>__len__</code>返回长度，当你调用<code>len()</code>时，实际是调用的该对象的<code>__len__()</code>方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">'abcd'</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'abcd'</span>.__len__()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>如果我们自己定义的类也想用<code>len()</code>方法，需要自己实现<code>__len()__</code>方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Son</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> <span class="number">175</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>son = Son()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(son)</span><br><span class="line"><span class="number">175</span></span><br></pre></td></tr></table></figure>
-<p>其他的都是普通的函数和属性，如<code>upper()</code>返回的大写字符串：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'heqing'</span>.upper()</span><br><span class="line"><span class="string">'HEQING'</span></span><br></pre></td></tr></table></figure>
-<p>列出属性和方法还不够，使用<code>getattr</code>、<code>setattr</code>、<code>hasattr</code>，可以操作一个对象的属性状态：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">MyObj</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            self.x = <span class="number">9</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">power</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> self.x * self.x</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj = MyObj()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'x'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.x</span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>setattr(obj,<span class="string">'y'</span>,<span class="number">20</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.y</span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'z'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'MyObj'</span> object has no attribute <span class="string">'z'</span></span><br></pre></td></tr></table></figure>
-<p>如果获取一个不存在的属性，会报错<code>&#39;MyObj&#39; object has no attribute &#39;z&#39;</code>.<br>可以设置<code>default</code>参数，属性不存在返回这个参数对应的值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'z'</span>,<span class="string">'没有这个属性'</span>)</span><br><span class="line"><span class="string">'没有这个属性'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>对象的方法同样可以获取到：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'power'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'power'</span>)</span><br><span class="line">&lt;bound method MyObj.power of &lt;__main__.MyObj object at <span class="number">0x100d18d68</span>&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong>只有在不知道对象信息的情况下，才回去分析对象的属性和方法。</p>
-
+        <h5 id="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"><a href="#slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。" class="headerlink" title="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"></a><strong>slots</strong>是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。</h5><a id="more"></a>
+<p>比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'name'</span>, <span class="string">'age'</span>)</span><br></pre></td></tr></table></figure>
+<p>那么<code>Student</code>的实例只能添加<code>name</code>，<code>age</code>属性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student() </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.name = <span class="string">'HeQing'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.age = <span class="number">18</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">100</span> </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'Student'</span> object has no attribute <span class="string">'score'</span></span><br></pre></td></tr></table></figure>
+<p><code>score</code>属性没有放在<code>__slots__</code>中，所以会报错。</p>
+<p>使用的<code>__slots__</code>的时候要注意，它仅对当前类的实例起作用，对继承的子类的实例不起作用，不会限制子类实例属性的绑定。<br>如果子类中也使用<code>__slots__</code>那么子类实例属性限制为父类的<code>__slots__</code>加上子类的<code>__slots__</code>。</p>
+<h5 id="property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"><a href="#property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。" class="headerlink" title="@property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"></a><code>@property</code>是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._score </span><br><span class="line"></span><br><span class="line"><span class="meta">    @score.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, int):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must be an integer!'</span>)</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span> <span class="keyword">or</span> value &gt; <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must between 0 ~ 100!'</span>)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
+<p>把一个<code>getter</code>方法变成属性只需加上<code>@proterty</code>，此时<code>@proterty</code>本身有创建了另一个装饰器<code>@score.setter</code>，负责把一个<code>setter</code>方法变成属性值，这样我们就有了一个可控的属性操作，可以限制属性的值，类型等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">60</span> <span class="comment"># OK，实际转化为s.set_score(60)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score <span class="comment"># OK，实际转化为s.get_score()</span></span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">9999</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between <span class="number">0</span> ~ <span class="number">100</span>!</span><br></pre></td></tr></table></figure>
+<p>如果只定义<code>@property</code>那么这个属性就是只读的。</p>
+<p><code>@property</code>主要是来保证对参数进行检查限制，减少程序的出错率，保证代码的健壮性。在类的定义中应用较广。</p>
+<p><em>练习：</em>请利用<code>@property</code>给一个<code>Screen</code>对象加上<code>width</code>和<code>height</code>属性，以及一个只读属性<code>resolution</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span><span class="params">(object)</span>:</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">width</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._width</span><br><span class="line"></span><br><span class="line"><span class="meta">	@width.setter</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">width</span><span class="params">(self, value)</span>:</span></span><br><span class="line">		self._width = value <span class="comment"># 起名加下划线是为了区分是函数还是变量，避免递归调用自己</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">height</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._height</span><br><span class="line"></span><br><span class="line"><span class="meta">	@width.setter</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">height</span><span class="params">(self, value)</span>:</span></span><br><span class="line">		self._height = value</span><br><span class="line"></span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">resolution</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">if</span> self._width &lt; <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">raise</span> ValueError(<span class="string">"with and height must over 0"</span>)</span><br><span class="line">		<span class="keyword">return</span> self._width * self._height</span><br><span class="line"></span><br><span class="line">s = Screen()</span><br><span class="line">s.width = <span class="number">1024</span></span><br><span class="line">s.height = <span class="number">768</span></span><br><span class="line">print(<span class="string">'resolution ='</span>, s.resolution)</span><br><span class="line"><span class="keyword">if</span> s.resolution == <span class="number">786432</span>:</span><br><span class="line">    print(<span class="string">'测试通过!'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'测试失败!'</span>)</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -387,9 +385,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+            <a href="/tags/slots/" rel="tag"><i class="fa fa-tag"></i> __slots__</a>
           
-            <a href="/tags/dir/" rel="tag"><i class="fa fa-tag"></i> dir</a>
+            <a href="/tags/property/" rel="tag"><i class="fa fa-tag"></i> property</a>
           
         </div>
       
@@ -402,15 +400,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/02/01/Python笔记 实例属性和类属性/" rel="next" title="Python笔记 实例属性和类属性">
+                <i class="fa fa-chevron-left"></i> Python笔记 实例属性和类属性
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/01/Python笔记 实例属性和类属性/" rel="prev" title="Python笔记 实例属性和类属性">
-                Python笔记 实例属性和类属性 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -462,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -556,6 +563,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"><span class="nav-number">1.</span> <span class="nav-text">slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"><span class="nav-number">2.</span> <span class="nav-text">@property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
