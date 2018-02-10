@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="__slots__,property," />
+  <meta name="keywords" content="内联函数,宏定义," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
-<meta name="keywords" content="__slots__,property">
+<meta name="description" content="在C中，常用预处理语句#define来代替一个函数定义。">
+<meta name="keywords" content="内联函数,宏定义">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python笔记 __slots__ &amp; @property">
-<meta property="og:url" content="http://yoursite.com/2018/02/05/Python笔记 __slots__/index.html">
+<meta property="og:title" content="内联函数与宏定义">
+<meta property="og:url" content="http://yoursite.com/2018/02/10/内联函数与宏定义/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
+<meta property="og:description" content="在C中，常用预处理语句#define来代替一个函数定义。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-05T02:10:13.000Z">
+<meta property="og:updated_time" content="2018-02-10T06:14:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python笔记 __slots__ &amp; @property">
-<meta name="twitter:description" content="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。">
+<meta name="twitter:title" content="内联函数与宏定义">
+<meta name="twitter:description" content="在C中，常用预处理语句#define来代替一个函数定义。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/05/Python笔记 __slots__/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/10/内联函数与宏定义/"/>
 
 
 
 
 
-  <title>Python笔记 __slots__ & @property | HeQing</title>
+  <title>内联函数与宏定义 | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/Python笔记 __slots__/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/10/内联函数与宏定义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python笔记 __slots__ & @property</h1>
+          <h1 class="post-title" itemprop="name headline">内联函数与宏定义</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T09:02:32+08:00">
-                2018-02-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-10T14:14:27+08:00">
+                2018-02-10
               </time>
             
 
@@ -318,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/c语言/" itemprop="url" rel="index">
+                    <span itemprop="name">c语言</span>
                   </a>
                 </span>
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  610
+                  2,182
                 </span>
               
 
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -391,20 +391,74 @@
       
 
       
-        <h5 id="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"><a href="#slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。" class="headerlink" title="slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"></a><strong>slots</strong>是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。</h5><a id="more"></a>
-<p>比如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'name'</span>, <span class="string">'age'</span>)</span><br></pre></td></tr></table></figure>
-<p>那么<code>Student</code>的实例只能添加<code>name</code>，<code>age</code>属性。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student() </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.name = <span class="string">'HeQing'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.age = <span class="number">18</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">100</span> </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'Student'</span> object has no attribute <span class="string">'score'</span></span><br></pre></td></tr></table></figure>
-<p><code>score</code>属性没有放在<code>__slots__</code>中，所以会报错。</p>
-<p>使用的<code>__slots__</code>的时候要注意，它仅对当前类的实例起作用，对继承的子类的实例不起作用，不会限制子类实例属性的绑定。<br>如果子类中也使用<code>__slots__</code>那么子类实例属性限制为父类的<code>__slots__</code>加上子类的<code>__slots__</code>。</p>
-<h5 id="property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"><a href="#property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。" class="headerlink" title="@property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"></a><code>@property</code>是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._score </span><br><span class="line"></span><br><span class="line"><span class="meta">    @score.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, int):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must be an integer!'</span>)</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span> <span class="keyword">or</span> value &gt; <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must between 0 ~ 100!'</span>)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
-<p>把一个<code>getter</code>方法变成属性只需加上<code>@proterty</code>，此时<code>@proterty</code>本身有创建了另一个装饰器<code>@score.setter</code>，负责把一个<code>setter</code>方法变成属性值，这样我们就有了一个可控的属性操作，可以限制属性的值，类型等。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">60</span> <span class="comment"># OK，实际转化为s.set_score(60)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score <span class="comment"># OK，实际转化为s.get_score()</span></span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.score = <span class="number">9999</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between <span class="number">0</span> ~ <span class="number">100</span>!</span><br></pre></td></tr></table></figure>
-<p>如果只定义<code>@property</code>那么这个属性就是只读的。</p>
-<p><code>@property</code>主要是来保证对参数进行检查限制，减少程序的出错率，保证代码的健壮性。在类的定义中应用较广。</p>
-<p><em>练习：</em>请利用<code>@property</code>给一个<code>Screen</code>对象加上<code>width</code>和<code>height</code>属性，以及一个只读属性<code>resolution</code>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span><span class="params">(object)</span>:</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">width</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._width</span><br><span class="line"></span><br><span class="line"><span class="meta">	@width.setter</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">width</span><span class="params">(self, value)</span>:</span></span><br><span class="line">		self._width = value <span class="comment"># 起名加下划线是为了区分是函数还是变量，避免递归调用自己</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">height</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._height</span><br><span class="line"></span><br><span class="line"><span class="meta">	@width.setter</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">height</span><span class="params">(self, value)</span>:</span></span><br><span class="line">		self._height = value</span><br><span class="line"></span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">resolution</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">if</span> self._width &lt; <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">raise</span> ValueError(<span class="string">"with and height must over 0"</span>)</span><br><span class="line">		<span class="keyword">return</span> self._width * self._height</span><br><span class="line"></span><br><span class="line">s = Screen()</span><br><span class="line">s.width = <span class="number">1024</span></span><br><span class="line">s.height = <span class="number">768</span></span><br><span class="line">print(<span class="string">'resolution ='</span>, s.resolution)</span><br><span class="line"><span class="keyword">if</span> s.resolution == <span class="number">786432</span>:</span><br><span class="line">    print(<span class="string">'测试通过!'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'测试失败!'</span>)</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>在C中，常用预处理语句#define来代替一个函数定义。<br><a id="more"></a></p>
+</blockquote>
+<h4 id="内联函数与宏定义"><a href="#内联函数与宏定义" class="headerlink" title="内联函数与宏定义"></a>内联函数与宏定义</h4><p>在C中，常用预处理语句#define来代替一个函数定义。<br>例如：<br><code>#define MAX(a，b) ((a)&gt;(b)?(a):(b))</code> </p>
+<p>该语句使得程序中每个出现<code>MAX(a,b)</code>函数调用的地方都被宏定义中后面的表达式<code>((a)&gt;(b)?(a):(b))</code>所替换。</p>
+<p>宏定义语句的书写格式有过分的讲究，<code>MAX</code>与括号之间不能有空格，所有的参数都要放在括号里。尽管如此，它还是有麻烦：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a=1，b=0；</span><br><span class="line">MAX(a++,b)； //a被增值2次</span><br><span class="line">MAX(a++,b+10)； //a被增值1次</span><br><span class="line">MAX(a,&quot;Hello&quot;)；//错误地比较int和字符串，没有参数类型检查</span><br></pre></td></tr></table></figure>
+<p><code>MAX( )</code>函数的求值会由于两个参数值的大小不同而产生不同的副作用。<code>MAX(a++,b)</code>的值为2，同时a的值为3；<code>MAX(a++,b+10)</code>的值为10，同时a的值为2。如果是普通函数，则<code>MAX(a,&quot;HellO&quot;)</code>会受到函数调用的检查，但此处不会因为两个参数类型不同而被编译拒之门外。幸运的是，通过一个<strong>内联函数</strong>可以得到所有<strong>宏的替换效能</strong>和所有<strong>可预见的状态以及常规函数的类型检查</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline int MAX(int a，int b)</span><br><span class="line">&#123;</span><br><span class="line">　 return a&gt;b?a:b；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>内联函数与宏的区别：</p>
+<p> 传统的宏定义函数可能会引起一些麻烦。</p>
+<p> ex：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define F(x) x+x</span><br><span class="line">  </span><br><span class="line">void main()&#123;int i=1;F(i++);&#125;</span><br></pre></td></tr></table></figure>
+<p> 这里x将被加两次。</p>
+<p> 内联函数被编译器自动的用函数的形势添加进代码，而不会出现这种情况。</p>
+<p> 内联函数的使用提高了效率（省去了很多函数调用汇编代码如：call和ret等）。</p>
+</li>
+<li><p>内联函数的使用：</p>
+<p> 所有在类的声明中定义的函数将被自动认为是内联函数。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class A()</span><br><span class="line">&#123;</span><br><span class="line">    void c();// not a inline function;</span><br><span class="line"></span><br><span class="line">    void d()&#123; </span><br><span class="line">        print(&quot;d() is a inline function.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 如果想将一个全局函数定义为内联函数可用，inline 关键字。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inline a()&#123;</span><br><span class="line">    print(&quot;a() is a inline function.&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> <strong>注意：</strong></p>
+<p>   在内联函数中如果有复杂操作将不被内联。如：循环和递归调用。</p>
+<p> <strong>总结：</strong></p>
+<p>   将简单短小的函数定义为内联函数将会提高效率。</p>
+</li>
+</ol>
+<h4 id="用内联取代宏代码"><a href="#用内联取代宏代码" class="headerlink" title="用内联取代宏代码"></a>用内联取代宏代码</h4><p><code>C++</code>语言支持函数内联，其目的是为了提高函数的执行效率（速度）。<br>在C程序中，可以用宏代码提高执行效率。宏代码本身不是函数，但使用起来象函数。<br><strong>预处理器用复制宏代码的方式代替函数调用，省去了参数压栈、生成汇编语言的CALL调用、返回参数、执行return等过程，从而提高了速度。</strong> 使用宏代码最大的缺点是容易出错，预处理器在复制宏代码时常常产生意想不到的边际效应。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MAX(a, b)       (a) &gt; (b) ? (a) : (b)</span><br></pre></td></tr></table></figure>
+<p>语句  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = MAX(i, j) + 2 ;</span><br></pre></td></tr></table></figure>
+<p>将被预处理器解释为 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = (i) &gt; (j) ? (i) : (j) + 2 ;</span><br></pre></td></tr></table></figure>
+<p>由于运算符<code>‘+’</code>比运算符<code>‘:’</code>的优先级高，所以上述语句并不等价于期望的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = ( (i) &gt; (j) ? (i) : (j) ) + 2 ;</span><br></pre></td></tr></table></figure>
+<p>如果把宏代码改写为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MAX(a, b)       ( (a) &gt; (b) ? (a) : (b) )</span><br></pre></td></tr></table></figure>
+<p>则可以解决由优先级引起的错误。但是即使使用修改后的宏代码也不是万无一失的，例如语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = MAX(i++, j);</span><br></pre></td></tr></table></figure>
+<p>将被预处理器解释为 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = (i++) &gt; (j) ? (i++) : (j);</span><br></pre></td></tr></table></figure>
+<p>对于<code>C++</code> 而言，使用宏代码还有另一种缺点：<strong>无法操作类的私有数据成员。</strong></p>
+<p>让我们看看<code>C++</code>的“函数内联”是如何工作的。</p>
+<p><strong>对于任何内联函数，编译器在符号表里放入函数的声明（包括名字、参数类型、返回值类型）。如果编译器没有发现内联函数存在错误，那么该函数的代码也被放入符号表里。在调用一个内联函数时，编译器首先检查调用是否正确（进行类型安全检查，或者进行自动类型转换，当然对所有的函数都一样）。如果正确，内联函数的代码就会直接替换函数调用，于是省去了函数调用的开销。</strong>  </p>
+<p>这个过程与预处理有显著的不同，因为预处理器不能进行类型安全检查，或者进行自动类型转换。假如内联函数是成员函数，对象的地址（this）会被放在合适的地方，这也是预处理器办不到的。<br><code>C++</code>语言的函数内联机制既具备宏代码的效率，又增加了安全性，而且可以自由操作类的数据成员。</p>
+<p>所以在<code>C++</code>程序中，应该用内联函数取代所有宏代码，“断言assert”恐怕是唯一的例外。assert是仅在Debug版本起作用的宏，它用于检查“不应该”发生的情况。为了不在程序的Debug版本和Release版本引起差别，assert不应该产生任何副作用。如果assert是函数，由于函数调用会引起内存、代码的变动，那么将导致Debug版本与Release版本存在差异。所以assert不是函数，而是宏。</p>
+<h4 id="内联函数的编程风格"><a href="#内联函数的编程风格" class="headerlink" title="内联函数的编程风格"></a>内联函数的编程风格</h4><p>关键字<code>inline</code>必须与函数定义体放在一起才能使函数成为内联，仅将inline放在函数声明前面不起任何作用。如下风格的函数Foo不能成为内联函数： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inline void Foo(int x, int y);  // inline仅与函数声明放在一起 </span><br><span class="line">void Foo(int x, int y) </span><br><span class="line">&#123; </span><br><span class="line">… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而如下风格的函数Foo则成为内联函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void Foo(int x, int y);  </span><br><span class="line">inline void Foo(int x, int y) // inline与函数定义体放在一起 </span><br><span class="line">&#123; </span><br><span class="line">… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以说，<code>inline</code>是一种<br><strong>“用于实现的关键字”</strong><br>，而不是一种<br><strong>“用于声明的关键字”</strong><br>。一般地，用户可以阅读函数的声明，但是看不到函数的定义。尽管在大多数教科书中内联函数的声明、定义体前面都加了<code>inline</code>关键字，但我认为<code>inline</code>不应该出现在函数的声明中。这个细节虽然不会影响函数的功能，但是体现了高质量<code>C++/C</code>程序设计风格的一个基本原则：<strong>声明与定义不可混为一谈，用户没有必要、也不应该知道函数是否需要内联。</strong></p>
+<p>定义在类声明之中的成员函数将自动地成为内联函数，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class A </span><br><span class="line">&#123; </span><br><span class="line">public: </span><br><span class="line">void Foo(int x, int y) &#123; … &#125;  // 自动地成为内联函数 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将成员函数的定义体放在类声明之中虽然能带来书写上的方便，但不是一种良好的编程风格，上例应该改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 头文件 </span><br><span class="line">class A </span><br><span class="line">&#123; </span><br><span class="line">public: </span><br><span class="line">void Foo(int x, int y)；  </span><br><span class="line">&#125; </span><br><span class="line">// 定义文件 </span><br><span class="line">inline void A::Foo(int x, int y) </span><br><span class="line">&#123; </span><br><span class="line">… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="慎用内联"><a href="#慎用内联" class="headerlink" title="慎用内联"></a>慎用内联</h4><p>内联能提高函数的执行效率，为什么不把所有的函数都定义成内联函数？ </p>
+<p>如果所有的函数都是内联函数，还用得着“内联”这个关键字吗？</p>
+<p>内联是以<strong>代码膨胀（复制）</strong>为代价，仅仅省去了<strong>函数调用</strong>的开销，从而提高函数的执行效率。如果执行函数体内代码的时间，相比于函数调用的开销较大，那么效率的收获会很少。另一方面，每一处内联函数的调用都要复制代码，将使程序的总代码量增大，消耗更多的内存空间。</p>
+<p>以下情况不宜使用内联： </p>
+<ul>
+<li>如果函数体内的代码比较长，使用内联将导致内存消耗代价较高。 </li>
+<li>如果函数体内出现循环，那么执行函数体内代码的时间要比函数调用的开销大。</li>
+</ul>
+<p>类的构造函数和析构函数容易让人误解成使用内联更有效。要当心构造函数和析构函数可能会隐藏一些行为，如“偷偷地”执行了基类或成员对象的构造函数和析构函数。</p>
+<p>所以不要随便地将构造函数和析构函数的定义体放在类声明中。<br>一个好的编译器将会根据函数的定义体，自动地取消不值得的内联（这进一步说明了inline不应该出现在函数的声明中）。</p>
+
       
     </div>
     
@@ -421,9 +475,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/slots/" rel="tag"><i class="fa fa-tag"></i> __slots__</a>
+            <a href="/tags/内联函数/" rel="tag"><i class="fa fa-tag"></i> 内联函数</a>
           
-            <a href="/tags/property/" rel="tag"><i class="fa fa-tag"></i> property</a>
+            <a href="/tags/宏定义/" rel="tag"><i class="fa fa-tag"></i> 宏定义</a>
           
         </div>
       
@@ -436,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/01/Python笔记 实例属性和类属性/" rel="next" title="Python笔记 实例属性和类属性">
-                <i class="fa fa-chevron-left"></i> Python笔记 实例属性和类属性
+              <a href="/2018/02/05/Python笔记 __slots__/" rel="next" title="Python笔记 __slots__ & @property">
+                <i class="fa fa-chevron-left"></i> Python笔记 __slots__ & @property
               </a>
             
           </div>
@@ -445,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/10/内联函数与宏定义/" rel="prev" title="内联函数与宏定义">
-                内联函数与宏定义 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -635,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。"><span class="nav-number">1.</span> <span class="nav-text">slots是一个特殊的变量，使用它可以限制一个类的实例所添加的属性。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。"><span class="nav-number">2.</span> <span class="nav-text">@property是一个装饰器（decorator），负责把一个方法变成属性调用。这个属性我们可以添加限制。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数与宏定义"><span class="nav-number">1.</span> <span class="nav-text">内联函数与宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用内联取代宏代码"><span class="nav-number">2.</span> <span class="nav-text">用内联取代宏代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数的编程风格"><span class="nav-number">3.</span> <span class="nav-text">内联函数的编程风格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#慎用内联"><span class="nav-number">4.</span> <span class="nav-text">慎用内联</span></a></li></ol></div>
             
 
           </div>
