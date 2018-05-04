@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python,属性," />
+  <meta name="keywords" content="信号量," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="Python是一门动态语言，根据类创建的实例可以任意绑定属性。">
-<meta name="keywords" content="Python,属性">
+<meta name="description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
+<meta name="keywords" content="信号量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python笔记 实例属性和类属性">
-<meta property="og:url" content="http://yoursite.com/2018/02/01/Python笔记 实例属性和类属性/index.html">
+<meta property="og:title" content="Swift同步网络请求">
+<meta property="og:url" content="http://yoursite.com/2018/05/04/Swift同步网络请求/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="Python是一门动态语言，根据类创建的实例可以任意绑定属性。">
+<meta property="og:description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T02:09:32.000Z">
+<meta property="og:updated_time" content="2018-05-04T01:58:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python笔记 实例属性和类属性">
-<meta name="twitter:description" content="Python是一门动态语言，根据类创建的实例可以任意绑定属性。">
+<meta name="twitter:title" content="Swift同步网络请求">
+<meta name="twitter:description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/01/Python笔记 实例属性和类属性/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/04/Swift同步网络请求/"/>
 
 
 
 
 
-  <title>Python笔记 实例属性和类属性 | HeQing</title>
+  <title>Swift同步网络请求 | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/Python笔记 实例属性和类属性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/Swift同步网络请求/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python笔记 实例属性和类属性</h1>
+          <h1 class="post-title" itemprop="name headline">Swift同步网络请求</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T16:55:54+08:00">
-                2018-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T09:58:16+08:00">
+                2018-05-04
               </time>
             
 
@@ -318,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  266
+                  596
                 </span>
               
 
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -391,23 +391,16 @@
       
 
       
-        <p>Python是一门动态语言，根据类创建的实例可以任意绑定属性。<br><a id="more"></a>  </p>
-<h5 id="实例属性的绑定有两种方式："><a href="#实例属性的绑定有两种方式：" class="headerlink" title="实例属性的绑定有两种方式："></a>实例属性的绑定有两种方式：</h5><ul>
-<li><p>在类里面的初始化方法中以<code>self.xxx</code>的方式绑定：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">		self.name = name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过实例变量直接复制绑定：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = People(<span class="string">'HeQing'</span>)</span><br><span class="line">s.height = <span class="number">180</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="类属性绑定："><a href="#类属性绑定：" class="headerlink" title="类属性绑定："></a>类属性绑定：</h5><ul>
-<li><p>在类中直接定义属性：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">name = <span class="string">"HeQing"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="实例属性和类属性之间的关系："><a href="#实例属性和类属性之间的关系：" class="headerlink" title="实例属性和类属性之间的关系："></a>实例属性和类属性之间的关系：</h5><p>如果实例中不存在这个属性，但是类中存在，那么所有的实例都可以调用这个属性，返回的是类属性的值。<br>如果实例中存在与类中同名的属性那么实例调用这个属性则是实例自己的属性。<br>因此不要对类属性和实例属性使用相同的名字，实例属性会屏蔽掉类属性。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">	name = <span class="string">"HeQing"</span></span><br><span class="line">	</span><br><span class="line">s = People()</span><br><span class="line">print(s.name)  <span class="comment"># HeQing</span></span><br><span class="line"></span><br><span class="line">s.name = <span class="string">"QingHe"</span></span><br><span class="line">print(s.name)  <span class="comment"># QingHe</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> s.name</span><br><span class="line">print(s.name)  <span class="comment"># HeQing</span></span><br></pre></td></tr></table></figure>
-
+        <blockquote>
+<p>今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。<br><a id="more"></a></p>
+</blockquote>
+<p>以前通过<code>NSURLConnection.sendSynchronousRequest()</code>方法能同步请求数据。从<code>iOS9</code>起，苹果废除<code>NSURLConnection</code>，使用<code>URLSession</code>代替 <code>NSURLConnection</code>。</p>
+<p>使用<code>URLSession</code>进行同步请求，可以使用信号量。<br>创建一个默认值为0的信号量，在调用网络请求的异步方法后就之行<code>wait()</code>，因此这个方法会一直等待， 在网络请求的<code>block</code>返回时之行<code>signal()</code>，这时才代表这个方法结束阻塞，可以继续执行了。</p>
+<p>Swift信号量操作如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建初始值为0的信号量，这时代表是红灯</span></span><br><span class="line"><span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line"><span class="comment">//让信号量 -1，比如默认值时0， wait()以后就变成了－1了，因此会等待</span></span><br><span class="line">semaphore.wait()</span><br><span class="line"><span class="comment">// 信号量+1，当&gt;0时就代表绿灯可以走了</span></span><br><span class="line">semaphore.signal()</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urlString:<span class="type">String</span> = <span class="type">NewLogin_BaseUrl</span> + <span class="type">Login</span>.refreshToken.path</span><br><span class="line"><span class="keyword">let</span> url = <span class="type">URL</span>(string:urlString)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> request = <span class="type">URLRequest</span>(url: url!)</span><br><span class="line">request.httpMethod = <span class="string">"POST"</span></span><br><span class="line">request.httpBody = <span class="string">"Refresh_token=<span class="subst">\(k_Refresh_token)</span>"</span>.data(using: .utf8)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建初始值为0的信号量</span></span><br><span class="line"><span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> session = <span class="type">URLSession</span>.shared</span><br><span class="line"><span class="keyword">let</span> dataTask = session.dataTask(with: request, completionHandler: &#123;(data, response, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                                            </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> data = data &#123;</span><br><span class="line">                </span><br><span class="line">       <span class="keyword">if</span> <span class="keyword">let</span> result = <span class="keyword">try</span>? <span class="type">JSONSerialization</span>.jsonObject(with: data, options: .allowFragments) &#123;</span><br><span class="line">                        </span><br><span class="line">       <span class="built_in">print</span>(result)                 </span><br><span class="line">                                        </span><br><span class="line">       <span class="keyword">guard</span> <span class="keyword">let</span> <span class="type">Tmodel</span>:<span class="type">YXNewLoginModel</span> = <span class="type">Mapper</span>&lt;<span class="type">YXNewLoginModel</span>&gt;().<span class="built_in">map</span>(<span class="type">JSON</span>:result <span class="keyword">as</span>! [<span class="type">String</span> : <span class="type">Any</span>]) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                    </span><br><span class="line">        <span class="keyword">if</span> <span class="type">Tmodel</span>.<span class="type">Success</span> == <span class="literal">true</span> &#123;</span><br><span class="line">                        </span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> content = <span class="type">Tmodel</span>.<span class="type">Content</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="type">Access_token</span> = content.<span class="type">Access_token</span>, <span class="keyword">let</span> <span class="type">Refresh_token</span> = content.<span class="type">Refresh_token</span> &#123;</span><br><span class="line">                            </span><br><span class="line">           <span class="keyword">if</span> <span class="type">Access_token</span> == <span class="string">"-1"</span> &#123;</span><br><span class="line">                                </span><br><span class="line">              <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Token出错 -1"</span>)</span><br><span class="line">                                </span><br><span class="line">           &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                                </span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(<span class="type">Access_token</span>, forKey: <span class="string">"k_Access_token"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(<span class="type">Refresh_token</span>, forKey: <span class="string">"k_Refresh_token"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">                                </span><br><span class="line">              <span class="keyword">let</span> date = <span class="type">Date</span>()</span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(date, forKey: <span class="string">"k_StartTime"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">            &#125;</span><br><span class="line">                            </span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Access_token出错"</span>)</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                </span><br><span class="line">          <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Access_token出错"</span>)</span><br><span class="line">          <span class="keyword">guard</span> <span class="keyword">let</span> error = error <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line">          <span class="built_in">print</span>(error)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      semaphore.signal()</span><br><span class="line">            </span><br><span class="line">&#125;) <span class="keyword">as</span> <span class="type">URLSessionTask</span></span><br><span class="line">        </span><br><span class="line">dataTask.resume()</span><br><span class="line">        </span><br><span class="line"><span class="number">_</span> = semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"刷新完毕！<span class="subst">\(k_Access_token)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="type">Content</span> =     &#123;</span><br><span class="line">        <span class="string">"Access_token"</span> = 5a74e75c69934c29bed444d9c932a0ac;</span><br><span class="line">        <span class="string">"Expires_in"</span> = <span class="number">7200</span>;</span><br><span class="line">        <span class="string">"Refresh_token"</span> = 3d88a290cce6475f8ab22d07c971a82f;</span><br><span class="line">        <span class="string">"Token_type"</span> = <span class="string">"&lt;null&gt;"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">Message</span> = <span class="string">""</span>;</span><br><span class="line">    <span class="type">Success</span> = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">刷新完毕！5a74e75c69934c29bed444d9c932a0ac</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -424,9 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-          
-            <a href="/tags/属性/" rel="tag"><i class="fa fa-tag"></i> 属性</a>
+            <a href="/tags/信号量/" rel="tag"><i class="fa fa-tag"></i> 信号量</a>
           
         </div>
       
@@ -439,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/01/Python笔记 dir()函数/" rel="next" title="Python笔记 dir()函数">
-                <i class="fa fa-chevron-left"></i> Python笔记 dir()函数
+              <a href="/2018/03/20/iOS中cookie的使用/" rel="next" title="iOS中cookie的使用">
+                <i class="fa fa-chevron-left"></i> iOS中cookie的使用
               </a>
             
           </div>
@@ -448,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/05/Python笔记 __slots__/" rel="prev" title="Python笔记 __slots__ & @property">
-                Python笔记 __slots__ & @property <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -503,17 +490,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -628,22 +606,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#实例属性的绑定有两种方式："><span class="nav-number">1.</span> <span class="nav-text">实例属性的绑定有两种方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类属性绑定："><span class="nav-number">2.</span> <span class="nav-text">类属性绑定：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例属性和类属性之间的关系："><span class="nav-number">3.</span> <span class="nav-text">实例属性和类属性之间的关系：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
