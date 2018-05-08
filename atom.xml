@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-04T02:13:03.000Z</updated>
+  <updated>2018-05-08T05:58:42.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Swift inout关键字的使用</title>
+    <link href="http://yoursite.com/2018/05/08/Swift%20inout%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2018/05/08/Swift inout关键字的使用/</id>
+    <published>2018-05-08T05:58:42.000Z</published>
+    <updated>2018-05-08T05:58:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>今天突然看到inout关键字so了解了一下其用法<br><a id="more"></a></p></blockquote><p>inout的作用是引用类型传递。与其对应的是值类型传递。</p><h4 id="1-值类型传递"><a href="#1-值类型传递" class="headerlink" title="1.值类型传递"></a>1.值类型传递</h4><p>值类型与引用类型相对，值类型的数据特征是，每一个内存实例都会有一份数据copy。在swift语言中，用<code>struct</code>定义的类型都是值类型，这包括了基本数据类型<code>（Int，String，Double,Float)</code>,集合类型<code>（Array，Dictionary，Set）</code>等。值类型在赋值和传递的过程中，会表现出copy数据的性质。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> point1 = <span class="type">Point</span>()</span><br><span class="line"><span class="keyword">var</span> point2 = point1</span><br></pre></td></tr></table></figure><p>我们定义两个值类型的变量point1、point2，当我们使用point1对point2进行赋值的时候，理论上编译器会创建point2对象，并将point1的数据进行一次copy赋值给point2。如果我们修改了point2的内容，我们会发现point1的内容并没有发生变化。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">point2.x = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(point2.x) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">print</span>(point1.x) <span class="comment">// 0, 对point2的修改不会影响point1的内容</span></span><br></pre></td></tr></table></figure><h4 id="2-引用类型传递"><a href="#2-引用类型传递" class="headerlink" title="2.引用类型传递"></a>2.引用类型传递</h4><p>值类型在传递的过程中会进行数据的copy，那么显而易见的是下面改变x的值是不会成功的。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: Int)</span></span> &#123;</span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 10 x的值不会发生改变</span></span><br></pre></td></tr></table></figure><p>如果我们希望x的值可以被改变，那么我们必须使用引用的方式来传递x。这时候我们就需要使用inout，当我们使用inout的时候，编译器不论当前struct的存放状态如何，都一定会把结构体放入一个连续的内存空间中，并将地址作为参数进行传递。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: inOut Int)</span></span> &#123; <span class="comment">// swift3.0改变了inOut修饰符的位置</span></span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 20 x的值发生了改变</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;今天突然看到inout关键字so了解了一下其用法&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="inout" scheme="http://yoursite.com/tags/inout/"/>
+    
+  </entry>
   
   <entry>
     <title>Swift同步网络请求(信号量)</title>
