@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="今天突然看到inout关键字so了解了一下其用法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-08T05:58:42.000Z">
+<meta property="og:updated_time" content="2018-05-09T03:17:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift inout关键字的使用">
 <meta name="twitter:description" content="今天突然看到inout关键字so了解了一下其用法">
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  483
+                  641
                 </span>
               
 
@@ -403,6 +403,9 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: Int)</span></span> &#123;</span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 10 x的值不会发生改变</span></span><br></pre></td></tr></table></figure>
 <p>如果我们希望x的值可以被改变，那么我们必须使用引用的方式来传递x。这时候我们就需要使用inout，当我们使用inout的时候，编译器不论当前struct的存放状态如何，都一定会把结构体放入一个连续的内存空间中，并将地址作为参数进行传递。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: inOut Int)</span></span> &#123; <span class="comment">// swift3.0改变了inOut修饰符的位置</span></span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 20 x的值发生了改变</span></span><br></pre></td></tr></table></figure>
+<h3 id="补充修正👇喵神说的："><a href="#补充修正👇喵神说的：" class="headerlink" title="补充修正👇喵神说的："></a>补充修正👇喵神说的：</h3><p>“如果你对 Swift 的值类型和引用类型的区别有所了解的话，会知道 Int 其实是一个值类型，我们并不能直接修改它的地址来让它指向新的值。那么这里这种类似 C 中取地址的 &amp; 符号到底做了额什么？对于值类型来说，inout 相当于在函数内部创建了一个新的值，然后在函数返回时将这个值赋给 &amp; 修饰的变量，这与引用类型的行为是不同的。”</p>
+<p>摘录来自: 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)”。</p>
+
       
     </div>
     
@@ -627,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-值类型传递"><span class="nav-number">1.</span> <span class="nav-text">1.值类型传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-引用类型传递"><span class="nav-number">2.</span> <span class="nav-text">2.引用类型传递</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-值类型传递"><span class="nav-number">1.</span> <span class="nav-text">1.值类型传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-引用类型传递"><span class="nav-number">2.</span> <span class="nav-text">2.引用类型传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充修正👇喵神说的："><span class="nav-number"></span> <span class="nav-text">补充修正👇喵神说的：</span></a></div>
             
 
           </div>
