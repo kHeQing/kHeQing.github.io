@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="信号量," />
+  <meta name="keywords" content="笔记," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
-<meta name="keywords" content="信号量">
+<meta name="description" content="读 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)” 笔记">
+<meta name="keywords" content="笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift同步网络请求(信号量)">
-<meta property="og:url" content="http://yoursite.com/2018/05/04/Swift同步网络请求(信号量)/index.html">
+<meta property="og:title" content="Swift读书笔记">
+<meta property="og:url" content="http://yoursite.com/2018/05/09/Swift读书笔记/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
+<meta property="og:description" content="读 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)” 笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-04T02:13:03.000Z">
+<meta property="og:updated_time" content="2018-05-10T03:31:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift同步网络请求(信号量)">
-<meta name="twitter:description" content="今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。">
+<meta name="twitter:title" content="Swift读书笔记">
+<meta name="twitter:description" content="读 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)” 笔记">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/04/Swift同步网络请求(信号量)/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/09/Swift读书笔记/"/>
 
 
 
 
 
-  <title>Swift同步网络请求(信号量) | HeQing</title>
+  <title>Swift读书笔记 | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/Swift同步网络请求(信号量)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/Swift读书笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift同步网络请求(信号量)</h1>
+          <h1 class="post-title" itemprop="name headline">Swift读书笔记</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T09:58:16+08:00">
-                2018-05-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T14:56:03+08:00">
+                2018-05-09
               </time>
             
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  596
+                  881
                 </span>
               
 
@@ -392,15 +392,22 @@
 
       
         <blockquote>
-<p>今天有个需求，我们的登录返回的Token两个小时过期，因此每次使用Token的时候需要检测Token是否过期，过期发请求刷新Token后，再使用Token进行数据请求。因为刷新Token使用的是异步请求，有时候还没有刷新完成，就进行了数据请求，导致请求数据失败。因此刷新Token的网络请求需改为同步请求。<br><a id="more"></a></p>
+<p>读 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)” 笔记<br><a id="more"></a></p>
 </blockquote>
-<p>以前通过<code>NSURLConnection.sendSynchronousRequest()</code>方法能同步请求数据。从<code>iOS9</code>起，苹果废除<code>NSURLConnection</code>，使用<code>URLSession</code>代替 <code>NSURLConnection</code>。</p>
-<p>使用<code>URLSession</code>进行同步请求，可以使用信号量。<br>创建一个默认值为0的信号量，在调用网络请求的异步方法后就之行<code>wait()</code>，因此这个方法会一直等待， 在网络请求的<code>block</code>返回时之行<code>signal()</code>，这时才代表这个方法结束阻塞，可以继续执行了。</p>
-<p>Swift信号量操作如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建初始值为0的信号量，这时代表是红灯</span></span><br><span class="line"><span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line"><span class="comment">//让信号量 -1，比如默认值时0， wait()以后就变成了－1了，因此会等待</span></span><br><span class="line">semaphore.wait()</span><br><span class="line"><span class="comment">// 信号量+1，当&gt;0时就代表绿灯可以走了</span></span><br><span class="line">semaphore.signal()</span><br></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urlString:<span class="type">String</span> = <span class="type">NewLogin_BaseUrl</span> + <span class="type">Login</span>.refreshToken.path</span><br><span class="line"><span class="keyword">let</span> url = <span class="type">URL</span>(string:urlString)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> request = <span class="type">URLRequest</span>(url: url!)</span><br><span class="line">request.httpMethod = <span class="string">"POST"</span></span><br><span class="line">request.httpBody = <span class="string">"Refresh_token=<span class="subst">\(k_Refresh_token)</span>"</span>.data(using: .utf8)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建初始值为0的信号量</span></span><br><span class="line"><span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> session = <span class="type">URLSession</span>.shared</span><br><span class="line"><span class="keyword">let</span> dataTask = session.dataTask(with: request, completionHandler: &#123;(data, response, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                                            </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> data = data &#123;</span><br><span class="line">                </span><br><span class="line">       <span class="keyword">if</span> <span class="keyword">let</span> result = <span class="keyword">try</span>? <span class="type">JSONSerialization</span>.jsonObject(with: data, options: .allowFragments) &#123;</span><br><span class="line">                        </span><br><span class="line">       <span class="built_in">print</span>(result)                 </span><br><span class="line">                                        </span><br><span class="line">       <span class="keyword">guard</span> <span class="keyword">let</span> <span class="type">Tmodel</span>:<span class="type">YXNewLoginModel</span> = <span class="type">Mapper</span>&lt;<span class="type">YXNewLoginModel</span>&gt;().<span class="built_in">map</span>(<span class="type">JSON</span>:result <span class="keyword">as</span>! [<span class="type">String</span> : <span class="type">Any</span>]) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                    </span><br><span class="line">        <span class="keyword">if</span> <span class="type">Tmodel</span>.<span class="type">Success</span> == <span class="literal">true</span> &#123;</span><br><span class="line">                        </span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> content = <span class="type">Tmodel</span>.<span class="type">Content</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">                        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="type">Access_token</span> = content.<span class="type">Access_token</span>, <span class="keyword">let</span> <span class="type">Refresh_token</span> = content.<span class="type">Refresh_token</span> &#123;</span><br><span class="line">                            </span><br><span class="line">           <span class="keyword">if</span> <span class="type">Access_token</span> == <span class="string">"-1"</span> &#123;</span><br><span class="line">                                </span><br><span class="line">              <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Token出错 -1"</span>)</span><br><span class="line">                                </span><br><span class="line">           &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                                </span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(<span class="type">Access_token</span>, forKey: <span class="string">"k_Access_token"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(<span class="type">Refresh_token</span>, forKey: <span class="string">"k_Refresh_token"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">                                </span><br><span class="line">              <span class="keyword">let</span> date = <span class="type">Date</span>()</span><br><span class="line">              <span class="type">Uds</span>.<span class="keyword">set</span>(date, forKey: <span class="string">"k_StartTime"</span>)</span><br><span class="line">              <span class="type">Uds</span>.synchronize()</span><br><span class="line">            &#125;</span><br><span class="line">                            </span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Access_token出错"</span>)</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                </span><br><span class="line">          <span class="type">HQ_rootVC</span>?.noticeOnlyText(<span class="string">"刷新Access_token出错"</span>)</span><br><span class="line">          <span class="keyword">guard</span> <span class="keyword">let</span> error = error <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line">          <span class="built_in">print</span>(error)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      semaphore.signal()</span><br><span class="line">            </span><br><span class="line">&#125;) <span class="keyword">as</span> <span class="type">URLSessionTask</span></span><br><span class="line">        </span><br><span class="line">dataTask.resume()</span><br><span class="line">        </span><br><span class="line"><span class="number">_</span> = semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"刷新完毕！<span class="subst">\(k_Access_token)</span>"</span>)</span><br></pre></td></tr></table></figure>
-<p>运行结果</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="type">Content</span> =     &#123;</span><br><span class="line">        <span class="string">"Access_token"</span> = 5a74e75c69934c29bed444d9c932a0ac;</span><br><span class="line">        <span class="string">"Expires_in"</span> = <span class="number">7200</span>;</span><br><span class="line">        <span class="string">"Refresh_token"</span> = 3d88a290cce6475f8ab22d07c971a82f;</span><br><span class="line">        <span class="string">"Token_type"</span> = <span class="string">"&lt;null&gt;"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">Message</span> = <span class="string">""</span>;</span><br><span class="line">    <span class="type">Success</span> = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">刷新完毕！5a74e75c69934c29bed444d9c932a0ac</span><br></pre></td></tr></table></figure>
+<h4 id="1-协议的方法声明为什么要使用mutating修饰？"><a href="#1-协议的方法声明为什么要使用mutating修饰？" class="headerlink" title="1.协议的方法声明为什么要使用mutating修饰？"></a>1.协议的方法声明为什么要使用mutating修饰？</h4><p>Swift 的 mutating 关键字修饰方法是为了能在该方法中修改 struct 或是 enum 的变量，所以如果你没在协议方法里写 mutating 的话，别人如果用 struct 或者 enum 来实现这个协议的话，就不能在方法里改变自己的变量了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Vehicle</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> numberOfWheels: <span class="type">Int</span> &#123;<span class="keyword">get</span>&#125;</span><br><span class="line">    <span class="keyword">var</span> color: <span class="type">UIColor</span> &#123;<span class="keyword">get</span> <span class="keyword">set</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">changeColor</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyCar</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> numberOfWheels = <span class="number">4</span></span><br><span class="line">    <span class="keyword">var</span> color = <span class="type">UIColor</span>.blue</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">changeColor</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 因为 `color` 的类型是 `UIColor`，这里直接写 .red 就足以推断类型了</span></span><br><span class="line">        color = .red</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-的实现原理"><a href="#2-的实现原理" class="headerlink" title="2. ?? 的实现原理"></a>2. ?? 的实现原理</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> level: <span class="type">Int</span>?</span><br><span class="line"><span class="keyword">var</span> startLevel = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> currentLevel = level ?? startLevel</span><br></pre></td></tr></table></figure>
+<p>在这个例子中我们没有设置过 level，因此最后 startLevel 被赋值给了 currentLevel。如果我们充满好奇心地点进 ?? 的定义，可以看到 ?? 有两种版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> ??&lt;T&gt;<span class="params">(<span class="keyword">optional</span>: T?, defaultValue: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">T</span>?) -&gt; <span class="type">T</span>?</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> ??&lt;T&gt;<span class="params">(<span class="keyword">optional</span>: T?, defaultValue: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">T</span>) -&gt; <span class="type">T</span></span><br></pre></td></tr></table></figure>
+<p>在这里我们的输入满足的是后者，虽然表面上看 startLevel 只是一个 Int，但是其实在使用时它被自动封装成了一个 () -&gt; Int，有了这个提示，我们不妨来猜测一下 ?? 的实现吧： </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> ??&lt;T&gt;<span class="params">(<span class="keyword">optional</span>: T?, defaultValue: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">T</span>) -&gt; <span class="type">T</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> <span class="keyword">optional</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Some</span>(<span class="keyword">let</span> value):</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">None</span>:</span><br><span class="line">            <span class="keyword">return</span> defaultValue()</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可能你会有疑问，为什么这里要使用 autoclosure，直接接受 T 作为参数并返回不行么，为何要用 () -&gt; T 这样的形式包装一遍，岂不是画蛇添足？其实这正是 autoclosure 的一个最值得称赞的地方。如果我们直接使用 T，那么就意味着在 ?? 操作符真正取值之前，我们就必须准备好一个默认值传入到这个方法中，一般来说这不会有很大问题，但是如果这个默认值是通过一系列复杂计算得到的话，可能会成为浪费 – 因为其实如果 optional 不是 nil 的话，我们实际上是完全没有用到这个默认值，而会直接返回 optional 解包后的值的。这样的开销是完全可以避免的，方法就是将默认值的计算推迟到 optional 判定为 nil 之后。</p>
+<p>就这样，我们可以巧妙地绕过条件判断和强制转换，以很优雅的写法处理对 Optional 及默认值的取值了。最后要提一句的是，@autoclosure 并不支持带有输入参数的写法，也就是说只有形如 () -&gt; T 的参数才能使用这个特性进行简化。另外因为调用者往往很容易忽视 @autoclosure 这个特性，所以在写接受 @autoclosure 的方法时还请特别小心，如果在容易产生歧义或者误解的时候，还是使用完整的闭包写法会比较好。</p>
+<h4 id="3-创建新的操作符"><a href="#3-创建新的操作符" class="headerlink" title="3.创建新的操作符"></a>3.创建新的操作符</h4><p>需要先对其进行声明，告诉编译器这个符号其实是一个操作符。添加如下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">precedencegroup <span class="type">DotProductPrecedence</span> &#123;</span><br><span class="line">    <span class="keyword">associativity</span>: <span class="keyword">none</span> <span class="comment">// 定义了结合律，即如果多个同类的操作符顺序出现的计算顺序。</span></span><br><span class="line">    higherThan: <span class="type">MultiplicationPrecedence</span> <span class="comment">// 定义运算的优先级</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// infix 表示要定义的是一个中位操作符，即前后都是输入</span></span><br><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> +*: <span class="type">DotProductPrecedence</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func +* (left: Vector2D, right: Vector2D) -&gt; Double &#123;</span><br><span class="line">    return left.x * right.x + left.y * right.y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重载操作符不需要声明。</p>
+
       
     </div>
     
@@ -417,7 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/信号量/" rel="tag"><i class="fa fa-tag"></i> 信号量</a>
+            <a href="/tags/笔记/" rel="tag"><i class="fa fa-tag"></i> 笔记</a>
           
         </div>
       
@@ -430,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/20/iOS中cookie的使用/" rel="next" title="iOS中cookie的使用">
-                <i class="fa fa-chevron-left"></i> iOS中cookie的使用
+              <a href="/2018/05/08/Swift inout关键字的使用/" rel="next" title="Swift inout关键字的使用">
+                <i class="fa fa-chevron-left"></i> Swift inout关键字的使用
               </a>
             
           </div>
@@ -439,10 +446,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/08/Swift inout关键字的使用/" rel="prev" title="Swift inout关键字的使用">
-                Swift inout关键字的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -494,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -610,6 +622,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-协议的方法声明为什么要使用mutating修饰？"><span class="nav-number">1.</span> <span class="nav-text">1.协议的方法声明为什么要使用mutating修饰？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-的实现原理"><span class="nav-number">2.</span> <span class="nav-text">2. ?? 的实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-创建新的操作符"><span class="nav-number">3.</span> <span class="nav-text">3.创建新的操作符</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
