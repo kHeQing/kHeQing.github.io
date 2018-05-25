@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="今天来研究一下Swift的编解码。Swift 4.0 引入了Codable。Codable 是一种 混合类型，由 Decodable 和 Encodable 协议构成。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-25T08:05:58.000Z">
+<meta property="og:updated_time" content="2018-05-25T08:28:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift编解码">
 <meta name="twitter:description" content="今天来研究一下Swift的编解码。Swift 4.0 引入了Codable。Codable 是一种 混合类型，由 Decodable 和 Encodable 协议构成。">
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  912
+                  915
                 </span>
               
 
@@ -427,6 +427,8 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Persons</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> persons: [<span class="type">Person</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编解码：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decoder = <span class="type">JSONDecoder</span>()</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> keyedPersons = <span class="keyword">try</span>? decoder.decode(<span class="type">Persons</span>.<span class="keyword">self</span>, from: json) &#123;</span><br><span class="line">    <span class="keyword">let</span> persons = keyedPersons.persons</span><br><span class="line">    <span class="built_in">print</span>(persons)</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">let</span> encoder = <span class="type">JSONEncoder</span>()</span><br><span class="line">    encoder.outputFormatting = .prettyPrinted</span><br><span class="line"><span class="comment">//    if let personJson = try? encoder.encode(keyedPersons) &#123;</span></span><br><span class="line"><span class="comment">//       print(String(data: personJson, encoding: .utf8)!)</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> personJson = <span class="keyword">try</span>? encoder.encode(persons.first) &#123;</span><br><span class="line">       <span class="built_in">print</span>(<span class="type">String</span>(data: personJson, encoding: .utf8)!)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/kHeQing/HQCodable" target="_blank" rel="noopener">demo下载</a></p>
+
       
     </div>
     
