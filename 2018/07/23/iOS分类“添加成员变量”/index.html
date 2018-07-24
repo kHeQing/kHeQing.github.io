@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="默认情况下，因为分类底层结构的限制，不能添加成员变量到分类中。但可以通过关联对象来间接实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T03:47:05.000Z">
+<meta property="og:updated_time" content="2018-07-24T06:34:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS分类“添加成员变量”">
 <meta name="twitter:description" content="默认情况下，因为分类底层结构的限制，不能添加成员变量到分类中。但可以通过关联对象来间接实现。">
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  587
+                  509
                 </span>
               
 
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -400,18 +400,15 @@
 <li><p>关联对象提供了以下API</p>
 <ul>
 <li><p>添加关联对象</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_setAssociatedObject</span><span class="params">(id object, <span class="keyword">const</span> <span class="keyword">void</span> * key,                            id value, objc_AssociationPolicy policy)</span></span></span><br></pre></td></tr></table></figure>
+   <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_setAssociatedObject</span><span class="params">(id object, <span class="keyword">const</span> <span class="keyword">void</span> * key,                            id value, objc_AssociationPolicy policy)</span></span></span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-</li>
-</ul>
-<pre><code><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   policy为关联对象的策略</span><br><span class="line">   OBJC_ASSOCIATION_ASSIGN             <span class="comment">// 对关联对象进行弱引用</span></span><br><span class="line">OBJC_ASSOCIATION_RETAIN_NONATOMIC   <span class="comment">// 对关联对象进行强引用(非原子)</span></span><br><span class="line">OBJC_ASSOCIATION_COPY_NONATOMIC     <span class="comment">// 对关联对象进行拷贝引用(非原子)</span></span><br><span class="line">OBJC_ASSOCIATION_RETAIN             <span class="comment">// 对关联对象进行强引用</span></span><br><span class="line">OBJC_ASSOCIATION_COPY               <span class="comment">// 对关联对象进行拷贝引用</span></span><br></pre></td></tr></table></figure>
-</code></pre><ul>
 <li><p>获得关联对象</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_getAssociatedObject</span><span class="params">(id object, <span class="keyword">const</span> <span class="keyword">void</span> * key)</span></span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>移除所有的关联对象</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_removeAssociatedObjects</span><span class="params">(id object)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="key的常见用法"><a href="#key的常见用法" class="headerlink" title="key的常见用法"></a>key的常见用法</h3><ul>
