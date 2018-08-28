@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-02T07:18:22.000Z</updated>
+  <updated>2018-08-28T07:46:22.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS列表性能优化Tips-图片圆角</title>
+    <link href="http://yoursite.com/2018/08/28/%E4%BD%BF%E7%94%A8CoreGraphics%E7%94%BB%E5%9C%86%E8%A7%92/"/>
+    <id>http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/</id>
+    <published>2018-08-28T07:44:14.000Z</published>
+    <updated>2018-08-28T07:46:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>layer.cornerRadius画圆角，会离屏渲染影响性能。<br><a id="more"></a></p></blockquote><h4 id="使用CoreGraphics画圆角"><a href="#使用CoreGraphics画圆角" class="headerlink" title="使用CoreGraphics画圆角"></a>使用CoreGraphics画圆角</h4><p>在UIImage分类中实现</p><p><code>#define StrokeRoundedImages 0</code></p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)makeCircularImageWithSize:(<span class="built_in">CGSize</span>)size</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// make a CGRect with the image's size</span></span><br><span class="line">  <span class="built_in">CGRect</span> circleRect = (<span class="built_in">CGRect</span>) &#123;<span class="built_in">CGPointZero</span>, size&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// begin the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(circleRect.size, <span class="literal">NO</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// create a UIBezierPath circle</span></span><br><span class="line">  <span class="built_in">UIBezierPath</span> *circle = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:circleRect cornerRadius:circleRect.size.width/<span class="number">2</span>];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// clip to the circle</span></span><br><span class="line">  [circle addClip];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// draw the image in the circleRect *AFTER* the context is clipped</span></span><br><span class="line">  [<span class="keyword">self</span> drawInRect:circleRect];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// create a border (for white background pictures)</span></span><br><span class="line"><span class="meta">#if StrokeRoundedImages</span></span><br><span class="line">  circle.lineWidth = <span class="number">1</span>;</span><br><span class="line">  [[<span class="built_in">UIColor</span> darkGrayColor] set];</span><br><span class="line">  [circle stroke];</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// get an image from the image context</span></span><br><span class="line">  <span class="built_in">UIImage</span> *roundedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// end the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> roundedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;layer.cornerRadius画圆角，会离屏渲染影响性能。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="列表性能优化" scheme="http://yoursite.com/tags/%E5%88%97%E8%A1%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>Block相关笔记</title>

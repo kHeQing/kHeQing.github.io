@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python,dir," />
+  <meta name="keywords" content="列表性能优化," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
-<meta name="keywords" content="Python,dir">
+<meta name="description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
+<meta name="keywords" content="列表性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python笔记 dir()函数">
-<meta property="og:url" content="http://yoursite.com/2018/02/01/Python笔记 dir()函数/index.html">
+<meta property="og:title" content="iOS列表性能优化Tips-图片圆角">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
+<meta property="og:description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T02:12:03.000Z">
+<meta property="og:updated_time" content="2018-08-28T07:46:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python笔记 dir()函数">
-<meta name="twitter:description" content="使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。">
+<meta name="twitter:title" content="iOS列表性能优化Tips-图片圆角">
+<meta name="twitter:description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/01/Python笔记 dir()函数/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/"/>
 
 
 
 
 
-  <title>Python笔记 dir()函数 | HeQing</title>
+  <title>iOS列表性能优化Tips-图片圆角 | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/Python笔记 dir()函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python笔记 dir()函数</h1>
+          <h1 class="post-title" itemprop="name headline">iOS列表性能优化Tips-图片圆角</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T13:16:51+08:00">
-                2018-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T15:44:14+08:00">
+                2018-08-28
               </time>
             
 
@@ -318,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  404
+                  171
                 </span>
               
 
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -391,22 +391,12 @@
       
 
       
-        <p>使用dir()函数可以获取一个Python的所有属性和方法，返回一个存放字符串的list。<br><a id="more"></a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(<span class="string">'string'</span>)</span><br><span class="line">[<span class="string">'__add__'</span>, <span class="string">'__class__'</span>, <span class="string">'__contains__'</span>,..., <span class="string">'title'</span>, <span class="string">'translate'</span>, <span class="string">'upper'</span>, <span class="string">'zfill'</span>]</span><br></pre></td></tr></table></figure>
-<p><code>__xxx__</code>这样的函数在Python中有特殊用途，如<code>__len__</code>返回长度，当你调用<code>len()</code>时，实际是调用的该对象的<code>__len__()</code>方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">'abcd'</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'abcd'</span>.__len__()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>如果我们自己定义的类也想用<code>len()</code>方法，需要自己实现<code>__len()__</code>方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Son</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> <span class="number">175</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>son = Son()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(son)</span><br><span class="line"><span class="number">175</span></span><br></pre></td></tr></table></figure>
-<p>其他的都是普通的函数和属性，如<code>upper()</code>返回的大写字符串：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'heqing'</span>.upper()</span><br><span class="line"><span class="string">'HEQING'</span></span><br></pre></td></tr></table></figure>
-<p>列出属性和方法还不够，使用<code>getattr</code>、<code>setattr</code>、<code>hasattr</code>，可以操作一个对象的属性状态：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">MyObj</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            self.x = <span class="number">9</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">power</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> self.x * self.x</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj = MyObj()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'x'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.x</span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>setattr(obj,<span class="string">'y'</span>,<span class="number">20</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.y</span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'y'</span>)</span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'z'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'MyObj'</span> object has no attribute <span class="string">'z'</span></span><br></pre></td></tr></table></figure>
-<p>如果获取一个不存在的属性，会报错<code>&#39;MyObj&#39; object has no attribute &#39;z&#39;</code>.<br>可以设置<code>default</code>参数，属性不存在返回这个参数对应的值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'z'</span>,<span class="string">'没有这个属性'</span>)</span><br><span class="line"><span class="string">'没有这个属性'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>对象的方法同样可以获取到：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hasattr(obj,<span class="string">'power'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(obj,<span class="string">'power'</span>)</span><br><span class="line">&lt;bound method MyObj.power of &lt;__main__.MyObj object at <span class="number">0x100d18d68</span>&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong>只有在不知道对象信息的情况下，才回去分析对象的属性和方法。</p>
-
+        <blockquote>
+<p>layer.cornerRadius画圆角，会离屏渲染影响性能。<br><a id="more"></a></p>
+</blockquote>
+<h4 id="使用CoreGraphics画圆角"><a href="#使用CoreGraphics画圆角" class="headerlink" title="使用CoreGraphics画圆角"></a>使用CoreGraphics画圆角</h4><p>在UIImage分类中实现</p>
+<p><code>#define StrokeRoundedImages 0</code></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)makeCircularImageWithSize:(<span class="built_in">CGSize</span>)size</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// make a CGRect with the image's size</span></span><br><span class="line">  <span class="built_in">CGRect</span> circleRect = (<span class="built_in">CGRect</span>) &#123;<span class="built_in">CGPointZero</span>, size&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// begin the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(circleRect.size, <span class="literal">NO</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// create a UIBezierPath circle</span></span><br><span class="line">  <span class="built_in">UIBezierPath</span> *circle = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:circleRect cornerRadius:circleRect.size.width/<span class="number">2</span>];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// clip to the circle</span></span><br><span class="line">  [circle addClip];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// draw the image in the circleRect *AFTER* the context is clipped</span></span><br><span class="line">  [<span class="keyword">self</span> drawInRect:circleRect];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// create a border (for white background pictures)</span></span><br><span class="line"><span class="meta">#if StrokeRoundedImages</span></span><br><span class="line">  circle.lineWidth = <span class="number">1</span>;</span><br><span class="line">  [[<span class="built_in">UIColor</span> darkGrayColor] set];</span><br><span class="line">  [circle stroke];</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// get an image from the image context</span></span><br><span class="line">  <span class="built_in">UIImage</span> *roundedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// end the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> roundedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -423,9 +413,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-          
-            <a href="/tags/dir/" rel="tag"><i class="fa fa-tag"></i> dir</a>
+            <a href="/tags/列表性能优化/" rel="tag"><i class="fa fa-tag"></i> 列表性能优化</a>
           
         </div>
       
@@ -438,15 +426,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/08/02/Block相关笔记/" rel="next" title="Block相关笔记">
+                <i class="fa fa-chevron-left"></i> Block相关笔记
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/01/Python笔记 实例属性和类属性/" rel="prev" title="Python笔记 实例属性和类属性">
-                Python笔记 实例属性和类属性 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -614,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用CoreGraphics画圆角"><span class="nav-number">1.</span> <span class="nav-text">使用CoreGraphics画圆角</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
