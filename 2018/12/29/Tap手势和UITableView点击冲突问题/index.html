@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="通过UIGestureRecognizerDelegate解决">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-29T03:32:37.792Z">
+<meta property="og:updated_time" content="2018-12-29T03:40:19.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tap手势和UITableView点击冲突问题">
 <meta name="twitter:description" content="通过UIGestureRecognizerDelegate解决">
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  44
+                  51
                 </span>
               
 
@@ -394,7 +394,7 @@
         <blockquote>
 <p>通过UIGestureRecognizerDelegate解决<br><a id="more"></a></p>
 </blockquote>
-<h3 id="方案代码"><a href="#方案代码" class="headerlink" title="方案代码"></a>方案代码</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gestureRecognizer</span><span class="params">(<span class="number">_</span> gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">let</span> point = touch.location(<span class="keyword">in</span>: <span class="keyword">self</span>)</span><br><span class="line">    <span class="keyword">if</span> leftTableV.frame.<span class="built_in">contains</span>(point) || rigthTableV.frame.<span class="built_in">contains</span>(point) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;     <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方案代码"><a href="#方案代码" class="headerlink" title="方案代码"></a>方案代码</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gestureRecognizer</span><span class="params">(<span class="number">_</span> gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">let</span> point = touch.location(<span class="keyword">in</span>: referenceView)</span><br><span class="line">    <span class="comment">//注意：touchView应该是referenceView的子视图</span></span><br><span class="line">    <span class="keyword">if</span> touchView.frame.<span class="built_in">contains</span>(point) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;     <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
