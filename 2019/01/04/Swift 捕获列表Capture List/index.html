@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="inout," />
+  <meta name="keywords" content="Capture List," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="今天突然看到inout关键字so了解了一下其用法">
-<meta name="keywords" content="inout">
+<meta name="description" content="我们都知道swift闭包捕获的是引用，但是swift闭包任何时候都是捕获变量的引用吗？并不是！">
+<meta name="keywords" content="Capture List">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift inout关键字的使用">
-<meta property="og:url" content="http://yoursite.com/2018/05/08/Swift inout关键字的使用/index.html">
+<meta property="og:title" content="Swift 捕获列表Capture List">
+<meta property="og:url" content="http://yoursite.com/2019/01/04/Swift 捕获列表Capture List/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="今天突然看到inout关键字so了解了一下其用法">
+<meta property="og:description" content="我们都知道swift闭包捕获的是引用，但是swift闭包任何时候都是捕获变量的引用吗？并不是！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-09T03:17:38.000Z">
+<meta property="og:updated_time" content="2019-01-04T08:46:46.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift inout关键字的使用">
-<meta name="twitter:description" content="今天突然看到inout关键字so了解了一下其用法">
+<meta name="twitter:title" content="Swift 捕获列表Capture List">
+<meta name="twitter:description" content="我们都知道swift闭包捕获的是引用，但是swift闭包任何时候都是捕获变量的引用吗？并不是！">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/08/Swift inout关键字的使用/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/04/Swift 捕获列表Capture List/"/>
 
 
 
 
 
-  <title>Swift inout关键字的使用 | HeQing</title>
+  <title>Swift 捕获列表Capture List | HeQing</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/Swift inout关键字的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Swift 捕获列表Capture List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift inout关键字的使用</h1>
+          <h1 class="post-title" itemprop="name headline">Swift 捕获列表Capture List</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T13:58:42+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T16:46:46+08:00">
+                2019-01-04
               </time>
             
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  641
+                  588
                 </span>
               
 
@@ -392,19 +392,33 @@
 
       
         <blockquote>
-<p>今天突然看到inout关键字so了解了一下其用法<br><a id="more"></a></p>
+<p>我们都知道swift闭包捕获的是引用，但是swift闭包任何时候都是捕获变量的引用吗？并不是！<br><a id="more"></a></p>
 </blockquote>
-<p>inout的作用是引用类型传递。与其对应的是值类型传递。</p>
-<h4 id="1-值类型传递"><a href="#1-值类型传递" class="headerlink" title="1.值类型传递"></a>1.值类型传递</h4><p>值类型与引用类型相对，值类型的数据特征是，每一个内存实例都会有一份数据copy。在swift语言中，用<code>struct</code>定义的类型都是值类型，这包括了基本数据类型<code>（Int，String，Double,Float)</code>,集合类型<code>（Array，Dictionary，Set）</code>等。值类型在赋值和传递的过程中，会表现出copy数据的性质。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> point1 = <span class="type">Point</span>()</span><br><span class="line"><span class="keyword">var</span> point2 = point1</span><br></pre></td></tr></table></figure>
-<p>我们定义两个值类型的变量point1、point2，当我们使用point1对point2进行赋值的时候，理论上编译器会创建point2对象，并将point1的数据进行一次copy赋值给point2。如果我们修改了point2的内容，我们会发现point1的内容并没有发生变化。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">point2.x = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(point2.x) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">print</span>(point1.x) <span class="comment">// 0, 对point2的修改不会影响point1的内容</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-引用类型传递"><a href="#2-引用类型传递" class="headerlink" title="2.引用类型传递"></a>2.引用类型传递</h4><p>值类型在传递的过程中会进行数据的copy，那么显而易见的是下面改变x的值是不会成功的。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: Int)</span></span> &#123;</span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 10 x的值不会发生改变</span></span><br></pre></td></tr></table></figure>
-<p>如果我们希望x的值可以被改变，那么我们必须使用引用的方式来传递x。这时候我们就需要使用inout，当我们使用inout的时候，编译器不论当前struct的存放状态如何，都一定会把结构体放入一个连续的内存空间中，并将地址作为参数进行传递。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeX</span><span class="params">(x: inOut Int)</span></span> &#123; <span class="comment">// swift3.0改变了inOut修饰符的位置</span></span><br><span class="line">    x + = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeX(x)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment">// 20 x的值发生了改变</span></span><br></pre></td></tr></table></figure>
-<h3 id="补充修正👇喵神说的："><a href="#补充修正👇喵神说的：" class="headerlink" title="补充修正👇喵神说的："></a>补充修正👇喵神说的：</h3><p>“如果你对 Swift 的值类型和引用类型的区别有所了解的话，会知道 Int 其实是一个值类型，我们并不能直接修改它的地址来让它指向新的值。那么这里这种类似 C 中取地址的 &amp; 符号到底做了额什么？对于值类型来说，inout 相当于在函数内部创建了一个新的值，然后在函数返回时将这个值赋给 &amp; 修饰的变量，这与引用类型的行为是不同的。”</p>
-<p>摘录来自: 王巍 (onevcat). “Swifter - Swift 必备 Tips (第三版)”。</p>
+<h3 id="闭包的特点"><a href="#闭包的特点" class="headerlink" title="闭包的特点"></a>闭包的特点</h3><p>在使用<code>Swift</code>编写程序时经常使用闭包，我们都知道<code>swift</code>闭包捕获的是引用，但是<code>swift</code>闭包任何时候都是捕获变量的引用吗？并不是！有时会使用到<strong>捕获列表</strong>，我们经常使用[weak self]来防止内存泄漏。</p>
+<p>我们来看一个简单的例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> closure : () -&gt; () = &#123; <span class="built_in">print</span>(a, b) &#125;</span><br></pre></td></tr></table></figure>
+<p>执行闭包</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">closure()   <span class="comment">// 0 0</span></span><br></pre></td></tr></table></figure>
+<p>改变a,b的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line">b = <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>再次调用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">closure()  <span class="comment">// 3 7</span></span><br></pre></td></tr></table></figure>
+<p>我们可以很直观的看到现在的a,b值都改变了。<code>swift</code>的闭包中捕获到的值是捕获的引用。所以一旦你改变了这些捕获变量的值，在闭包中就会反应出来。</p>
+<h3 id="引用类型会带来一些问题"><a href="#引用类型会带来一些问题" class="headerlink" title="引用类型会带来一些问题"></a>引用类型会带来一些问题</h3><p>很多时候，闭包的特性并不总是那么直观，很容易带来一些奇怪的错误。比如，我们创建一个<code>Array</code>，然后数组的类型是闭包</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arrayClosure :  [() -&gt; ()] = []</span><br></pre></td></tr></table></figure>
+<p>执行下面的代码，将闭包添加到数组中</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">1</span>...<span class="number">3</span> &#123;  </span><br><span class="line">    arrayClosure.append &#123; <span class="built_in">print</span>(i) &#125;</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>条用数组中的三个闭包看看打印值:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrayClosure[<span class="number">0</span>]()<span class="comment">// 3</span></span><br><span class="line">arrayClosure[<span class="number">1</span>]()<span class="comment">// 3</span></span><br><span class="line">arrayClosure[<span class="number">2</span>]()<span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>闭包打印的值都是最后一次的值。因为闭包捕获的是<strong>i</strong>的引用。如果想打印出1，2，3就要捕获到i的值。这时候就需要用到<strong>捕获列表</strong>了。</p>
+<p>再看下面的例子，我们加了<code>[c, d] in</code> ，关键字 <code>in</code> 的左边就是我们的重点，这里表示的不是数组，而是<strong>捕获列表</strong>。一旦用了<strong>捕获列表</strong>，闭包捕获的将不是原始值的引用，而是在闭包内生成了一个原始值的copy副本。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">c</span> = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> d = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> anotherClosure : () -&gt; () = &#123;  [<span class="built_in">c</span>, d]  <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">c</span>, d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">c</span> = <span class="number">3</span></span><br><span class="line">d = <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>调用闭包</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anotherClosure() <span class="comment">// 0, 0</span></span><br></pre></td></tr></table></figure>
+<p>例子2修改打印1，2，3</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">1</span>...<span class="number">3</span> &#123;  </span><br><span class="line">    arrayClosure.append &#123; [i] <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(i) </span><br><span class="line">    &#125;</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>条用数组中的三个闭包看看打印值:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrayClosure[<span class="number">0</span>]()<span class="comment">// 1</span></span><br><span class="line">arrayClosure[<span class="number">1</span>]()<span class="comment">// 2</span></span><br><span class="line">arrayClosure[<span class="number">2</span>]()<span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -422,7 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/inout/" rel="tag"><i class="fa fa-tag"></i> inout</a>
+            <a href="/tags/Capture-List/" rel="tag"><i class="fa fa-tag"></i> Capture List</a>
           
         </div>
       
@@ -435,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/04/Swift同步网络请求(信号量)/" rel="next" title="Swift同步网络请求(信号量)">
-                <i class="fa fa-chevron-left"></i> Swift同步网络请求(信号量)
+              <a href="/2018/12/29/Tap手势和UITableView点击冲突问题/" rel="next" title="Tap手势和UITableView点击冲突问题">
+                <i class="fa fa-chevron-left"></i> Tap手势和UITableView点击冲突问题
               </a>
             
           </div>
@@ -444,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/09/Swift读书笔记/" rel="prev" title="Swift读书笔记">
-                Swift读书笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-值类型传递"><span class="nav-number">1.</span> <span class="nav-text">1.值类型传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-引用类型传递"><span class="nav-number">2.</span> <span class="nav-text">2.引用类型传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充修正👇喵神说的："><span class="nav-number"></span> <span class="nav-text">补充修正👇喵神说的：</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的特点"><span class="nav-number">1.</span> <span class="nav-text">闭包的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用类型会带来一些问题"><span class="nav-number">2.</span> <span class="nav-text">引用类型会带来一些问题</span></a></li></ol></div>
             
 
           </div>
