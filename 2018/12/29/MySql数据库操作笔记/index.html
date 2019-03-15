@@ -96,10 +96,12 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="MySql数据库基本操作笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-28T03:13:11.309Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190220110602870.png">
+<meta property="og:updated_time" content="2019-02-28T03:18:53.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql数据库操作笔记">
 <meta name="twitter:description" content="MySql数据库基本操作笔记">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190220110602870.png">
 
 
 
@@ -354,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  482
+                  466
                 </span>
               
 
@@ -396,7 +398,12 @@
 </blockquote>
 <h3 id="命令行链接"><a href="#命令行链接" class="headerlink" title="命令行链接"></a>命令行链接</h3><ul>
 <li><p>打开终端，运行命令</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	mysql -u root -p</span><br><span class="line">	回车后输入数据库的密码</span><br><span class="line">	```	</span><br><span class="line">- 链接成功后如下	</span><br><span class="line"></span><br><span class="line">	![](https://img-blog.csdnimg.cn/20190220110602870.png)</span><br><span class="line">	</span><br><span class="line">- 退出登录</span><br><span class="line"></span><br><span class="line">	```sql</span><br><span class="line">	quit 和 exit </span><br><span class="line">	或</span><br><span class="line">	ctrl+d</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">回车后输入数据库的密码</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>链接成功后如下<br>  <img src="https://img-blog.csdnimg.cn/20190220110602870.png" alt=""></p>
+</li>
+<li><p>退出登录</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">quit 和 exit </span><br><span class="line">或</span><br><span class="line">ctrl+d</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
@@ -443,17 +450,13 @@
 <li>创建表</li>
 <li><p>auto_increment表示自动增长</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">   	column1 datatype contrai,</span><br><span class="line">   	column2 datatype,</span><br><span class="line">   	column3 datatype,</span><br><span class="line">   	.....</span><br><span class="line">   	columnN datatype,</span><br><span class="line">   	PRIMARY <span class="keyword">KEY</span>(one <span class="keyword">or</span> more <span class="keyword">columns</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>  例如：创建班级表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> classes(</span><br><span class="line">   	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> auto_increment primary <span class="keyword">key</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">   	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>  例如：创建学生表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> students(</span><br><span class="line">   	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">   	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">   	age tinyint <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">   	height <span class="built_in">decimal</span>(<span class="number">5</span>,<span class="number">2</span>),</span><br><span class="line">   	gender enum(<span class="string">'男'</span>,<span class="string">'女'</span>,<span class="string">'人妖'</span>,<span class="string">'保密'</span>),</span><br><span class="line">   	cls_id <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>例如：创建班级表
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> classes(</span><br><span class="line">   	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> auto_increment primary <span class="keyword">key</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">   	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-
-例如：创建学生表
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> students(</span><br><span class="line">   	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">   	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">   	age tinyint <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">   	height <span class="built_in">decimal</span>(<span class="number">5</span>,<span class="number">2</span>),</span><br><span class="line">   	gender enum(<span class="string">'男'</span>,<span class="string">'女'</span>,<span class="string">'人妖'</span>,<span class="string">'保密'</span>),</span><br><span class="line">   	cls_id <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</code></pre><ul>
+<ul>
 <li><p>修改表-添加字段</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 列名 类型;</span><br><span class="line">例：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> students <span class="keyword">add</span> birthday datetime;</span><br></pre></td></tr></table></figure>
 </li>
@@ -512,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/29/Swift 面试遇到的一道算法题/" rel="next" title="Swift 面试遇到的一道算法题">
-                <i class="fa fa-chevron-left"></i> Swift 面试遇到的一道算法题
+              <a href="/2018/12/29/Charles抓包 http、https/" rel="next" title="Charles抓包 http、https">
+                <i class="fa fa-chevron-left"></i> Charles抓包 http、https
               </a>
             
           </div>
@@ -522,8 +525,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/04/Swift 捕获列表Capture List/" rel="prev" title="Swift 捕获列表Capture List">
-                Swift 捕获列表Capture List <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/29/Swift 排序/" rel="prev" title="Swift 排序">
+                Swift 排序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -605,7 +608,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -627,7 +630,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
