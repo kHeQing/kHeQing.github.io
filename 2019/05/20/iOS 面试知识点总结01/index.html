@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="HeQing">
 <meta property="og:description" content="面试知识点总结01">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-04T03:32:06.309Z">
+<meta property="og:updated_time" content="2019-06-04T03:45:57.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 面试知识点总结01">
 <meta name="twitter:description" content="面试知识点总结01">
@@ -428,11 +428,12 @@
 </ol>
 <h4 id="3-iOS-沙盒"><a href="#3-iOS-沙盒" class="headerlink" title="3. iOS 沙盒"></a>3. iOS 沙盒</h4><p>沙盒目录：<code>Bundle Container</code>, <code>Data Container</code>, <code>iCloud Container</code>  </p>
 <ul>
-<li><p>Bundle Container<br>AppName.app: 该目录包含了应用程序本身的数据，包括资源文件和可执行文件等。整个目录是只读的，并且不会被 iTunes 同步。可通过 <code>NSString *bundlePath = [[NSBundle mainBundle] bundlePath];</code>获取到路径地址。</p>
+<li><p>Bundle Container</p>
+<p>AppName.app: 该目录包含了应用程序本身的数据，包括资源文件和可执行文件等。整个目录是只读的，并且不会被 iTunes 同步。可通过 <code>NSString *bundlePath = [[NSBundle mainBundle] bundlePath];</code>获取到路径地址。</p>
 </li>
 <li><p>Data Container</p>
 <ul>
-<li><p>Documents/：我们可以将应用程序的数据文件保存在该目录下。该目录会被iTunes同步，可通过<code>NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</code>获取到路径地址。</p>
+<li><p>Documents/：我们可以将应用程序的数据文件保存在该目录下。该目录会被iTunes同步，可通过<br><code>NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</code><br>获取到路径地址。</p>
 <ul>
 <li>Documents/Inbox：外部应用程序需要访问的文件保存在该目录下。沙盒机制是不允许外部程序访问沙盒中的文件，因此苹果的解决方案是将文件拷贝一份到应用的 Documents/Inbox 目录下。该目录只读，不可修改，会被 iTunes 同步。</li>
 </ul>
