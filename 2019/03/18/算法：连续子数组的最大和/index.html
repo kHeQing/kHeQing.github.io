@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="列表性能优化," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -88,18 +88,17 @@
 
 
 
-<meta name="description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
-<meta name="keywords" content="列表性能优化">
+<meta name="description" content="连续子数组的最大和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS列表性能优化Tips-图片圆角">
-<meta property="og:url" content="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/index.html">
+<meta property="og:title" content="连续子数组的最大和">
+<meta property="og:url" content="http://yoursite.com/2019/03/18/算法：连续子数组的最大和/index.html">
 <meta property="og:site_name" content="HeQing">
-<meta property="og:description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
+<meta property="og:description" content="连续子数组的最大和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-28T07:46:22.000Z">
+<meta property="og:updated_time" content="2019-06-06T01:24:00.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS列表性能优化Tips-图片圆角">
-<meta name="twitter:description" content="layer.cornerRadius画圆角，会离屏渲染影响性能。">
+<meta name="twitter:title" content="连续子数组的最大和">
+<meta name="twitter:description" content="连续子数组的最大和">
 
 
 
@@ -129,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/03/18/算法：连续子数组的最大和/"/>
 
 
 
 
 
-  <title>iOS列表性能优化Tips-图片圆角 | HeQing</title>
+  <title>连续子数组的最大和 | HeQing</title>
   
 
 
@@ -266,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/使用CoreGraphics画圆角/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/算法：连续子数组的最大和/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HeQing">
@@ -283,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS列表性能优化Tips-图片圆角</h1>
+          <h1 class="post-title" itemprop="name headline">连续子数组的最大和</h1>
         
 
         <div class="post-meta">
@@ -295,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T15:44:14+08:00">
-                2018-08-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:53:54+08:00">
+                2019-03-18
               </time>
             
 
@@ -318,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -354,7 +353,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  171
+                  254
                 </span>
               
 
@@ -392,11 +391,10 @@
 
       
         <blockquote>
-<p>layer.cornerRadius画圆角，会离屏渲染影响性能。<br><a id="more"></a></p>
+<p>连续子数组的最大和<br><a id="more"></a></p>
 </blockquote>
-<h4 id="使用CoreGraphics画圆角"><a href="#使用CoreGraphics画圆角" class="headerlink" title="使用CoreGraphics画圆角"></a>使用CoreGraphics画圆角</h4><p>在UIImage分类中实现</p>
-<p><code>#define StrokeRoundedImages 0</code></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)makeCircularImageWithSize:(<span class="built_in">CGSize</span>)size</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// make a CGRect with the image's size</span></span><br><span class="line">  <span class="built_in">CGRect</span> circleRect = (<span class="built_in">CGRect</span>) &#123;<span class="built_in">CGPointZero</span>, size&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// begin the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(circleRect.size, <span class="literal">NO</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// create a UIBezierPath circle</span></span><br><span class="line">  <span class="built_in">UIBezierPath</span> *circle = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:circleRect cornerRadius:circleRect.size.width/<span class="number">2</span>];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// clip to the circle</span></span><br><span class="line">  [circle addClip];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// draw the image in the circleRect *AFTER* the context is clipped</span></span><br><span class="line">  [<span class="keyword">self</span> drawInRect:circleRect];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// create a border (for white background pictures)</span></span><br><span class="line"><span class="meta">#if StrokeRoundedImages</span></span><br><span class="line">  circle.lineWidth = <span class="number">1</span>;</span><br><span class="line">  [[<span class="built_in">UIColor</span> darkGrayColor] set];</span><br><span class="line">  [circle stroke];</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// get an image from the image context</span></span><br><span class="line">  <span class="built_in">UIImage</span> *roundedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// end the image context since we're not in a drawRect:</span></span><br><span class="line">  <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> roundedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="连续子数组的最大和"><a href="#连续子数组的最大和" class="headerlink" title="连续子数组的最大和"></a>连续子数组的最大和</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 连续子数组的最大和</span></span><br><span class="line"><span class="comment"> 输入一个整型数组，数组里有正数也有负数。  </span></span><br><span class="line"><span class="comment"> 数组中的一个或连续多个整数组成一个子数组。  </span></span><br><span class="line"><span class="comment"> 求所有子数组的和的最大值。  </span></span><br><span class="line"><span class="comment"> 要求时间复杂度为O(n)。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置一个全局标识符 判断输入是否有效</span></span><br><span class="line"><span class="keyword">var</span> invalidInput = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findGreatestSumOfSubArray</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> array.<span class="built_in">count</span> &lt;= <span class="number">0</span> &#123;</span><br><span class="line">        invalidInput = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    invalidInput = <span class="literal">false</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> curSum = <span class="number">0</span> <span class="comment">// 累加的子数组和</span></span><br><span class="line">    <span class="keyword">var</span> greatestSum = <span class="number">0</span> <span class="comment">// 最大的子数组和（题中说明数组中有正数因此初始化为0）</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> array &#123;</span><br><span class="line">        <span class="keyword">if</span> curSum &lt; <span class="number">0</span> &#123; <span class="comment">// 如果累加的子数组和小于0 则抛弃</span></span><br><span class="line">            curSum = item</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            curSum += item</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> greatestSum &lt; curSum &#123;</span><br><span class="line">            greatestSum = curSum <span class="comment">// 记录 最大值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> greatestSum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> test = findGreatestSumOfSubArray([<span class="number">1</span>,-<span class="number">2</span>,<span class="number">3</span>,<span class="number">10</span>,-<span class="number">4</span>,<span class="number">7</span>,<span class="number">2</span>,-<span class="number">5</span>]) <span class="comment">// [3,10,-4,7,2] 18</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -411,12 +409,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/列表性能优化/" rel="tag"><i class="fa fa-tag"></i> 列表性能优化</a>
-          
-        </div>
-      
 
       
       
@@ -426,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/02/Block相关笔记/" rel="next" title="Block相关笔记">
-                <i class="fa fa-chevron-left"></i> Block相关笔记
+              <a href="/2019/03/18/算法：找出数组中重复的数字/" rel="next" title="找出数组中重复的数字">
+                <i class="fa fa-chevron-left"></i> 找出数组中重复的数字
               </a>
             
           </div>
@@ -436,8 +428,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/06/iOS时间显示格式转换/" rel="prev" title="iOS时间显示格式转换">
-                iOS时间显示格式转换 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/18/LeetCode 445 Add Two Numbers II/" rel="prev" title="LeetCode 445 Add Two Numbers II">
+                LeetCode 445 Add Two Numbers II <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -625,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用CoreGraphics画圆角"><span class="nav-number">1.</span> <span class="nav-text">使用CoreGraphics画圆角</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#连续子数组的最大和"><span class="nav-number">1.</span> <span class="nav-text">连续子数组的最大和</span></a></li></ol></div>
             
 
           </div>
